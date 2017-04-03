@@ -1,0 +1,31 @@
+{
+  "name": "vue-schedule-calendar",
+  "description": "Vue schedule calendar.",
+  "version": "0.0.1",
+  "author": "yscoder <634206017@qq.com>",
+  "main": "./src/scheduleCalendar/index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.3.2",
+    "babel-preset-latest": "^6.24.0",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.9.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "postcss-loader": "^1.3.3",
+    "vue": "^2.2.6",
+    "vue-loader": "^11.1.4",
+    "vue-style-loader": "^2.0.5",
+    "vue-template-compiler": "^2.2.6",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.2.0"
+  }
+}
