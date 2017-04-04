@@ -6,6 +6,8 @@
                  :type="item.type"
                  :data="data"
                  :index="index"
+                 :draggedIndex="draggedIndex"
+                 @highlight="highlight"
                  key="index"></sc-date>
     </div>
 </template>
@@ -26,7 +28,8 @@ export default {
     },
     data() {
         return {
-            viewTransition: 'sc-moveTo'
+            viewTransition: 'sc-moveTo',
+            draggedIndex: -1
         }
     },
     computed: {
@@ -43,11 +46,19 @@ export default {
         },
         addAnimation() {
             this.$el.classList.add(this.animationClass)
+        },
+        highlight(index) {
+            this.draggedIndex = index
         }
     },
-    updated() {
-        this.addAnimation()
-    }
+    watch: {
+        year(val, old) {
+            val !== old && this.addAnimation()
+        },
+        month(val, old) {
+            val !== old && this.addAnimation()
+        },
+    },
 }
 </script>
 <style lang="less">

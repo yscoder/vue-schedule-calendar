@@ -1,6 +1,6 @@
 <template>
     <div class="schedule-calendar-date"
-         :class="[type, { today: isToday }]"
+         :class="[type, { today: isToday, dragged: draggedIndex === index }]"
          @dragover.prevent=""
          @dragenter.prevent="dragenter"
          @drop="onDrop">
@@ -41,7 +41,8 @@ export default {
         date: Date,
         type: String,
         data: Array,
-        index: Number
+        index: Number,
+        draggedIndex: Number
     },
     data() {
         return {
@@ -95,19 +96,20 @@ export default {
             }
         },
         dragenter(e) {
-            if (e.target === this.$el) {
-                const $prevCell = this.$el.parentNode.querySelector('.dragenter')
-                $prevCell && $prevCell.classList.remove('dragenter')
-                this.$el.classList.add('dragenter')
-                EventBus.$emit('cell-dragenter', e, this.date, this.type, this.index)
+            if (this.$el.contains(e.target)) {
+                this.$emit('highlight', this.index)
+
+                if (this.$el === e.target) {
+                    EventBus.$emit('cell-dragenter', e, this.date, this.type, this.index)
+                }
             }
         },
         dragItem(e, item, date, type) {
-            this.$el.classList.add('dragenter')
+            this.$emit('highlight', this.index)
             EventBus.$emit('item-dragstart', e, item, date, type)
         },
         onDrop(e) {
-            this.$el.classList.remove('dragenter')
+            this.$emit('highlight', -1)
             EventBus.$emit('item-drop', e, this.date, this.type, this.index)
         },
     },
@@ -160,8 +162,11 @@ export default {
             }
         }
 
-        &.dragenter {
-            background: @sc-primary-light-color
+        &.dragged {
+            background: @sc-primary-light-color;
+            .schedule-calendar-details {
+                background: @sc-primary-light-color;
+            }
         }
     }
     &date-hd {
@@ -174,13 +179,12 @@ export default {
         display: flex;
         flex-direction: column;
         align-content: center;
-        transition: .3s ease-in-out;
-        transform-origin: top left;
 
         &.expanded {
             position: absolute;
             z-index: 2;
             width: @sc-details-width;
+            min-width: 100%;
             padding: 0 6px 10px;
             background: @sc-body-color;
             box-shadow: @sc-box-shadow;

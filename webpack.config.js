@@ -7,8 +7,8 @@ module.exports = {
         demo: './src/main.js'
     },
     output: {
-        path: path.resolve(__dirname, './docs'),
-        publicPath: '/docs/',
+        path: path.resolve(__dirname, './dist'),
+        publicPath: '/dist/',
         filename: '[name].js'
     },
     module: {
@@ -54,16 +54,16 @@ module.exports = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-    module.exports.module.rules[0].options.loaders = {
-        css: ExtractTextPlugin.extract({
-            fallbackLoader: 'vue-style-loader',
-            use: 'css-loader!postcss-loader'
-        }),
-        less: ExtractTextPlugin.extract({
-            fallbackLoader: 'vue-style-loader',
-            use: 'css-loader!postcss-loader!less-loader'
-        })
-    }
+    // module.exports.module.rules[0].options.loaders = {
+    //     css: ExtractTextPlugin.extract({
+    //         fallbackLoader: 'vue-style-loader',
+    //         use: 'css-loader!postcss-loader'
+    //     }),
+    //     less: ExtractTextPlugin.extract({
+    //         fallbackLoader: 'vue-style-loader',
+    //         use: 'css-loader!postcss-loader!less-loader'
+    //     })
+    // }
 
     module.exports.devtool = ''
     // http://vue-loader.vuejs.org/en/workflow/production.html
@@ -79,9 +79,9 @@ if (process.env.NODE_ENV === 'production') {
                 warnings: false
             }
         }),
-        new ExtractTextPlugin({
-            filename: '[name].css'
-        }),
+        // new ExtractTextPlugin({
+        //     filename: '[name].css'
+        // }),
         new Webpack.LoaderOptionsPlugin({
             minimize: true
         })
