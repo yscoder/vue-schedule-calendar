@@ -8,7 +8,7 @@
                  :index="index"
                  :draggedIndex="draggedIndex"
                  @highlight="highlight"
-                 key="index"></sc-date>
+                 :key="index"></sc-date>
     </div>
 </template>
 <script>

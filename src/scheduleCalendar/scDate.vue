@@ -24,7 +24,7 @@
                          :date="date"
                          :type="type"
                          @item-dragstart="dragItem"
-                         key="date"></sc-item>
+                         :key="item.id"></sc-item>
             </div>
         </div>
     </div>

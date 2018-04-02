@@ -70,6 +70,15 @@ export default {
                 }
             ]
         }
+    },
+    created() {
+        // 显示为当月的数据
+        const now = new Date()
+        this.data = this.data.map(item => {
+            const d = item.date.split('-')[2]
+            item.date = `${now.getFullYear()}-${now.getMonth() + 1}-${d}`
+            return item
+        })
     }
 }
 </script>
