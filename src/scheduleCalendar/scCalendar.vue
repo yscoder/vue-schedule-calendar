@@ -6,7 +6,6 @@
         <sc-body :year="year"
                  :month="month"
                  :startWeek="startWeek"
-                 :direction="direction"
                  :data="keepData"></sc-body>
     </div>
 </template>
@@ -22,7 +21,7 @@ export default {
         scBody
     },
     props: {
-        startMonth: '',
+        startMonth: String,
         startWeek: {
             type: Number,
             default: 1
@@ -36,13 +35,12 @@ export default {
         return {
             year: new Date().getFullYear(),
             month: new Date().getMonth(),
-            direction: 'Left',
             keepData: [...this.originData],
             dragItem: null
         }
     },
     watch: {
-        originData: function (data) {
+        originData (data) {
             console.log(data)
             if (data.length) {
                 this.keepData = [...data]
@@ -50,10 +48,9 @@ export default {
         }
     },
     methods: {
-        updateView({ year, month, direction }) {
+        updateView(year, month) {
             this.year = year
             this.month = month
-            this.direction = direction
         },
         cellDragenter(e, date, type, index) {
 
@@ -70,6 +67,11 @@ export default {
         EventBus.$on('cell-dragenter', this.cellDragenter)
         EventBus.$on('item-dragstart', this.itemDragstart)
         EventBus.$on('item-drop', this.itemDrop)
+    },
+    destoryed() {
+        EventBus.$off('cell-dragenter', this.cellDragenter)
+        EventBus.$off('item-dragstart', this.itemDragstart)
+        EventBus.$off('item-drop', this.itemDrop)
     }
 }
 </script>

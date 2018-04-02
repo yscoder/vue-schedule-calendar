@@ -27,36 +27,22 @@ export default {
 
     },
     methods: {
-        updateValue({ direction, year, month = this.month }) {
-            this.$emit('updateValue', { year, month, direction })
+        updateValue(year, month = this.month) {
+            this.$emit('updateValue', year, month)
         },
         prevYear() {
-            this.updateValue({
-                direction: 'Right',
-                year: this.year - 1
-            })
+            this.updateValue(this.year - 1)
         },
         nextYear() {
-            this.updateValue({
-                direction: 'Left',
-                year: this.year + 1
-            })
+            this.updateValue(this.year + 1)
         },
         prevMonth() {
             const { year, month } = calcPrevMonth(this.year, this.month)
-            this.updateValue({
-                direction: 'Right',
-                year,
-                month
-            })
+            this.updateValue(year, month)
         },
         nextMonth() {
             const { year, month } = calcNextMonth(this.year, this.month)
-            this.updateValue({
-                direction: 'Left',
-                year,
-                month
-            })
+            this.updateValue(year, month)
         },
     }
 }

@@ -4,7 +4,6 @@
         <sc-month :year="year"
                   :month="month"
                   :startWeek="startWeek"
-                  :direction="direction"
                   :data="data"></sc-month>
     </div>
 </template>
@@ -21,7 +20,6 @@ export default {
         year: Number,
         month: Number,
         startWeek: Number,
-        direction: String,
         data: Array
     },
 }

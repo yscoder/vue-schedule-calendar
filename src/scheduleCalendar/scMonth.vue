@@ -1,5 +1,6 @@
 <template>
     <div class="schedule-calendar-month"
+         :class="{ [animationClass]: animated }"
          @animationend="removeAnimation">
         <sc-date v-for="(item, index) in days"
                  :date="item.date"
@@ -23,13 +24,14 @@ export default {
         year: Number,
         month: Number,
         startWeek: Number,
-        direction: String,
         data: Array
     },
     data() {
         return {
             viewTransition: 'sc-moveTo',
-            draggedIndex: -1
+            draggedIndex: -1,
+            direction: 'Left',
+            animated: false
         }
     },
     computed: {
@@ -38,26 +40,39 @@ export default {
         },
         animationClass() {
             return this.viewTransition + this.direction
+        },
+        mDate() {
+            return new Date(this.year, this.month, 0)
         }
     },
     methods: {
         removeAnimation() {
-            this.$el.classList.remove(this.animationClass)
+            this.animated = false
         },
-        addAnimation() {
-            this.$el.classList.add(this.animationClass)
+        addAnimation(val, old) {
+            if(val !== old) {
+                this.animated = true
+            }
         },
         highlight(index) {
             this.draggedIndex = index
         }
     },
     watch: {
-        year(val, old) {
-            val !== old && this.addAnimation()
-        },
-        month(val, old) {
-            val !== old && this.addAnimation()
-        },
+        mDate(val, old) {
+            if(old) {
+                if(val < old) {
+                    this.direction = 'Right'
+                }
+                if(val > old) {
+                    this.direction = 'Left'
+                }
+            }
+
+            if(val !== old) {
+                this.animated = true
+            }
+        }
     },
 }
 </script>
