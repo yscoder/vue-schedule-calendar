@@ -17,7 +17,7 @@ export default {
     },
     computed: {
         weeks() {
-            return this.startWeek === 0 ? this.cn : this.cn.concat(this.cn.shift())
+            return this.startWeek === 0 ? this.cn : this.cn.concat(this.cn.splice(0, this.startWeek))
         }
     }
 }

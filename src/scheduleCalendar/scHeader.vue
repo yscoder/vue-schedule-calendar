@@ -6,7 +6,14 @@
         <button type="button"
                 class="schedule-calendar-arrow"
                 @click="prevMonth">&lt;</button>
-        <span class="schedule-calendar-display">{{year}} 年 {{month + 1}} 月</span>
+        <div class="schedule-calendar-picker">
+            <div role="button"
+                 class="schedule-calendar-display"
+                 @click="pickerVisible = !pickerVisible">{{year}} 年 {{month + 1}} 月</div>
+            <sc-picker :visible="pickerVisible"
+                       :year="year"
+                       :month="month"></sc-picker>
+        </div>
         <button type="button"
                 class="schedule-calendar-arrow"
                 @click="nextMonth">&gt;</button>
@@ -17,11 +24,20 @@
 </template>
 <script>
 import { calcPrevMonth, calcNextMonth } from './utils'
+import scPicker from './scPicker'
 
 export default {
+    components: {
+        scPicker
+    },
     props: {
         year: Number,
         month: Number
+    },
+    data() {
+        return {
+            pickerVisible: false
+        }
     },
     computed: {
 
@@ -44,6 +60,9 @@ export default {
             const { year, month } = calcNextMonth(this.year, this.month)
             this.updateValue(year, month)
         },
+        showPicker() {
+
+        }
     }
 }
 </script>
@@ -71,23 +90,33 @@ export default {
         padding: 0 10px;
         height: 100%;
         color: @sc-primary-light-color;
-        border-radius: 2px;
-        transition: .2s ease-in-out;
 
-        &:hover {
-            color: #fff;
-            background: @sc-primary-dark-color
-        }
         &:active {
-            background: darken(@sc-primary-dark-color, 15%)
+            background: darken(@sc-primary-dark-color, 15%);
         }
         &.double-arrow {
-            letter-spacing: -3px
+            letter-spacing: -3px;
+        }
+    }
+    &picker {
+        position: relative;
+        z-index: 20;
+        margin: 0 5px;
+        height: 100%;
+    }
+    &arrow,
+    &display {
+        border-radius: 2px;
+        transition: 0.2s ease-in-out;
+        &:hover {
+            color: #fff;
+            background: @sc-primary-dark-color;
         }
     }
     &display {
-        padding: 0 1em;
+        padding: 0 10px;
         height: 100%;
+        cursor: pointer;
     }
 }
 </style>
