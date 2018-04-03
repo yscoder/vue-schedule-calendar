@@ -6,7 +6,7 @@
         <button type="button"
                 class="schedule-calendar-arrow"
                 @click="prevMonth">&lt;</button>
-        <div class="schedule-calendar-picker">
+        <div class="schedule-calendar-picker" ref="picker">
             <div role="button"
                  class="schedule-calendar-display"
                  @click="pickerVisible = !pickerVisible">{{year}} 年 {{month + 1}} 月</div>
@@ -60,9 +60,17 @@ export default {
             const { year, month } = calcNextMonth(this.year, this.month)
             this.updateValue(year, month)
         },
-        showPicker() {
-
+        clickOutSide(e) {
+            if(this.pickerVisible && !this.$refs.picker.contains(e.target)) {
+                this.pickerVisible = false
+            }
         }
+    },
+    created() {
+        document.addEventListener('mouseup', this.clickOutSide)
+    },
+    destoryed() {
+        document.removeEventListener('mouseup', this.clickOutSide)
     }
 }
 </script>
@@ -101,7 +109,7 @@ export default {
     &picker {
         position: relative;
         z-index: 20;
-        margin: 0 5px;
+        padding: 4px 5px;
         height: 100%;
     }
     &arrow,
@@ -115,7 +123,7 @@ export default {
     }
     &display {
         padding: 0 10px;
-        height: 100%;
+        line-height: 32px;
         cursor: pointer;
     }
 }

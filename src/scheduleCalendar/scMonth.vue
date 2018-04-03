@@ -8,6 +8,7 @@
                  :data="data"
                  :index="index"
                  :draggedIndex="draggedIndex"
+                 :itemRender="itemRender"
                  @highlight="highlight"
                  :key="index"></sc-date>
     </div>
@@ -24,7 +25,8 @@ export default {
         year: Number,
         month: Number,
         startWeek: Number,
-        data: Array
+        data: Array,
+        itemRender: Function
     },
     data() {
         return {

@@ -81,8 +81,7 @@ export const monthlyCalendar = (year, month, startWeek) => {
     const days = calcDays(curMonth)
     const prevMonth = calcPrevMonth(year, month)
     const prevDays = calcDays(prevMonth)
-    let prevOver = firstWeek(year, month) - startWeek
-    prevOver = prevOver >= 0 ? prevOver : 7 + prevOver
+    const prevOver = (firstWeek(year, month) || 7) - startWeek
     const nextMonth = calcNextMonth(year, month)
 
     for (let p = prevDays - prevOver + 1; p <= prevDays; p++) {

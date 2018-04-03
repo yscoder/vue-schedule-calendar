@@ -3,7 +3,7 @@
          class="demo">
         <h1 class="demo-title">Vue Schedule Calendar</h1>
         <div class="demo-container">
-            <schedule-calendar :originData="data"></schedule-calendar>
+            <schedule-calendar :originData="data" :itemRender="itemRender"></schedule-calendar>
         </div>
     </div>
 </template>
@@ -68,7 +68,11 @@ export default {
                     date: '2017-04-09',
                     text: '我表示很无奈'
                 }
-            ]
+            ],
+            itemRender(item) {
+                const h = this.$createElement
+                return h('span', 'CustomRender：' + item.text)
+            }
         }
     },
     created() {

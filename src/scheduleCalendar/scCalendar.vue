@@ -3,22 +3,28 @@
         <sc-header :year="year"
                    :month="month"
                    @updateValue="updateView"></sc-header>
-        <sc-body :year="year"
-                 :month="month"
-                 :startWeek="startWeek"
-                 :data="keepData"></sc-body>
+        <div class="schedule-calendar-body">
+            <sc-week :startWeek="startWeek"></sc-week>
+            <sc-month :year="year"
+                      :month="month"
+                      :startWeek="startWeek"
+                      :data="keepData"
+                      :itemRender="itemRender"></sc-month>
+        </div>
     </div>
 </template>
 <script>
 import { EventBus } from './utils'
 import scHeader from './scHeader'
-import scBody from './scBody'
+import scWeek from './scWeek'
+import scMonth from './scMonth'
 
 export default {
     name: 'schedule-calendar',
     components: {
         scHeader,
-        scBody
+        scWeek,
+        scMonth,
     },
     props: {
         startMonth: String,
@@ -29,7 +35,8 @@ export default {
         originData: {
             type: Array,
             default: []
-        }
+        },
+        itemRender: Function
     },
     data() {
         return {
@@ -40,7 +47,7 @@ export default {
         }
     },
     watch: {
-        originData (data) {
+        originData(data) {
             console.log(data)
             if (data.length) {
                 this.keepData = [...data]
@@ -92,7 +99,7 @@ export default {
         *,
         *::before,
         *::after {
-            box-sizing: border-box
+            box-sizing: border-box;
         }
 
         button {
@@ -100,6 +107,14 @@ export default {
             outline: none;
             cursor: pointer;
             background: transparent;
+        }
+
+        &-body {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            overflow: hidden;
+            background: @sc-body-color;
         }
     }
 }

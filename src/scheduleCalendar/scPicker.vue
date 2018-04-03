@@ -3,7 +3,7 @@
          v-if="visible">
         <div class="schedule-calendar-picker-col"
              style="width: 60%">
-            <ul>
+            <ul ref="yearList">
                 <li v-for="n in endYear - beginYear"
                     :class="{ active: beginYear + n === year}"
                     @click="selectYear(beginYear + n)">{{beginYear + n}}</li>
@@ -11,7 +11,7 @@
         </div>
         <div class="schedule-calendar-picker-col"
              style="width: 40%">
-            <ul>
+            <ul ref="monthList">
                 <li v-for="n in 12"
                     :class="{active: n === month + 1}"
                     @click="selectMonth(n - 1)">{{n}}</li>
@@ -33,6 +33,15 @@ export default {
         year: Number,
         month: Number,
         visible: Boolean
+    },
+    watch: {
+        visible(val) {
+            if(!val) return
+            this.$nextTick(() => {
+                this.$refs.yearList.querySelector('li.active').scrollIntoView()
+                this.$refs.monthList.querySelector('li.active').scrollIntoView()
+            })
+        }
     },
     methods: {
         selectYear(year) {
@@ -83,8 +92,8 @@ export default {
                 background: lighten(@sc-primary-light-color, 8%);
             }
             &.active {
-                color: #fff;
-                background: @sc-primary-color;
+                color: @sc-primary-color;
+                font-weight: bold
             }
         }
         &:hover {

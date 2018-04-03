@@ -23,6 +23,7 @@
                          :item="item"
                          :date="date"
                          :type="type"
+                         :itemRender="itemRender"
                          @item-dragstart="dragItem"
                          :key="item.id"></sc-item>
             </div>
@@ -42,7 +43,8 @@ export default {
         type: String,
         data: Array,
         index: Number,
-        draggedIndex: Number
+        draggedIndex: Number,
+        itemRender: Function
     },
     data() {
         return {
@@ -87,12 +89,12 @@ export default {
         },
         expandAll() {
             this.expanded = true
-            document.addEventListener('click', this.reduceAll)
+            document.addEventListener('mouseup', this.reduceAll)
         },
         reduceAll(e) {
             if (!this.$refs.details.contains(e.target)) {
                 this.expanded = false
-                document.removeEventListener('click', this.reduceAll)
+                document.removeEventListener('mouseup', this.reduceAll)
             }
         },
         dragenter(e) {
