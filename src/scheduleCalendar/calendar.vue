@@ -8,7 +8,7 @@
             <month :year="year"
                    :month="month"
                    :startWeek="startWeek"
-                   :data="keepData"
+                   :data="events"
                    :itemRender="dateItemRender"></month>
         </div>
     </div>
@@ -42,16 +42,7 @@ export default {
         return {
             year: new Date().getFullYear(),
             month: new Date().getMonth(),
-            keepData: [...this.events],
             dragItem: null
-        }
-    },
-    watch: {
-        events(data) {
-            console.log(data)
-            if (data.length) {
-                this.keepData = [...data]
-            }
         }
     },
     methods: {
@@ -60,25 +51,34 @@ export default {
             this.month = month
         },
         cellDragenter(e, date, type, index) {
-
+            this.$emit('event-dragenter', e, this.dragItem, date)
         },
         itemDragstart(e, item, date, type) {
             this.dragItem = item
+            this.$emit('event-dragstart', e, item, date)
         },
         itemDrop(e, date, type, index) {
             if (!this.dragItem) return
-            this.keepData.find(item => item.id === this.dragItem.id).date = date
+            console.log('[event-dragend]:', this.dragItem, date)
+            this.$emit('event-dragend', e, this.dragItem, date)
+        },
+        itemClick(e, item) {
+            console.log('[event-click]:', item)
+            this.$emit('event-click', e, item)
+        },
+        dateClick(e, date) {
+            console.log('[date-click]:', date)
+            this.$emit('date-click', e, date)
         }
     },
     created() {
         EventBus.$on('cell-dragenter', this.cellDragenter)
         EventBus.$on('item-dragstart', this.itemDragstart)
         EventBus.$on('item-drop', this.itemDrop)
+        EventBus.$on('date-click', this.dateClick)
     },
     destoryed() {
-        EventBus.$off('cell-dragenter', this.cellDragenter)
-        EventBus.$off('item-dragstart', this.itemDragstart)
-        EventBus.$off('item-drop', this.itemDrop)
+        EventBus.$off()
     }
 }
 </script>

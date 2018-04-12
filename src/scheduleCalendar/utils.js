@@ -9,7 +9,7 @@ export const EventBus = new Vue()
  * 是否闰年
  * @param {*} year
  */
-const isLeap = year => (year % 100 !== 0 && year % 4 === 0) || (year % 400 === 0)
+const isLeap = year => (year % 100 !== 0 && year % 4 === 0) || year % 400 === 0
 
 /**
  * 计算某月天数
@@ -108,7 +108,7 @@ export const monthlyCalendar = (year, month, startWeek) => {
     return result
 }
 
-const tryParse = obj => typeof obj === 'string' ? new Date(obj) : obj
+const tryParse = obj => (typeof obj === 'string' ? new Date(obj) : obj)
 
 /**
  * 是否是同一天
@@ -118,15 +118,21 @@ const tryParse = obj => typeof obj === 'string' ? new Date(obj) : obj
 export const isSameDay = (one, two) => {
     const oneDate = tryParse(one)
     const twoDate = tryParse(two)
-    return oneDate.getDate() === twoDate.getDate()
-        && oneDate.getMonth() === twoDate.getMonth()
-        && oneDate.getFullYear() === twoDate.getFullYear()
+    return (
+        oneDate.getDate() === twoDate.getDate() &&
+        oneDate.getMonth() === twoDate.getMonth() &&
+        oneDate.getFullYear() === twoDate.getFullYear()
+    )
 }
 
+const fillZero = value => (value < 10 ? `0${value}` : value)
 export const format = (date, exp = 'yyyy年MM月dd日') => {
     const y = date.getFullYear()
     const m = date.getMonth() + 1
     const d = date.getDate()
 
-    return exp.replace('yyyy', y).replace('MM', m).replace('dd', d)
+    return exp
+        .replace('yyyy', y)
+        .replace('MM', fillZero(m))
+        .replace('dd', fillZero(d))
 }

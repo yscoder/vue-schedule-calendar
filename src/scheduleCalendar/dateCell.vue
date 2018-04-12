@@ -3,7 +3,8 @@
          :class="[type, { today: isToday, dragged: draggedIndex === index }]"
          @dragover.prevent=""
          @dragenter.prevent="dragenter"
-         @drop="onDrop">
+         @drop="onDrop"
+         @click="cellClick">
         <div class="schedule-calendar-date-hd">
             <div class="schedule-calendar-date-label">{{date.getDate()}}</div>
             <button type="button"
@@ -102,18 +103,21 @@ export default {
                 this.$emit('highlight', this.index)
 
                 if (this.$el === e.target) {
-                    EventBus.$emit('cell-dragenter', e, this.date, this.type, this.index)
+                    EventBus.$emit('cell-dragenter', e, format(this.date, 'yyyy-MM-dd'), this.type, this.index)
                 }
             }
         },
         dragItem(e, item, date, type) {
             this.$emit('highlight', this.index)
-            EventBus.$emit('item-dragstart', e, item, date, type)
+            EventBus.$emit('item-dragstart', e, item, format(date, 'yyyy-MM-dd'), type)
         },
         onDrop(e) {
             this.$emit('highlight', -1)
-            EventBus.$emit('item-drop', e, this.date, this.type, this.index)
+            EventBus.$emit('item-drop', e, format(this.date, 'yyyy-MM-dd'), this.type, this.index)
         },
+        cellClick(e) {
+            EventBus.$emit('date-click', e, format(this.date, 'yyyy-MM-dd'))
+        }
     },
     mounted() {
         this.calcVolume()
