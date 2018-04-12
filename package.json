@@ -1,7 +1,7 @@
 {
   "name": "vue-schedule-calendar",
   "description": "Vue schedule calendar.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "yusen <634206017@qq.com>",
   "main": "./dist/scheduleCalendar.js",
   "license": "MIT",

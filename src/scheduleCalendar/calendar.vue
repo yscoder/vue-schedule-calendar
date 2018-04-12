@@ -75,6 +75,7 @@ export default {
         EventBus.$on('cell-dragenter', this.cellDragenter)
         EventBus.$on('item-dragstart', this.itemDragstart)
         EventBus.$on('item-drop', this.itemDrop)
+        EventBus.$on('item-click', this.itemClick)
         EventBus.$on('date-click', this.dateClick)
     },
     destoryed() {
