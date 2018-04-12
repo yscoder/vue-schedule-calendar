@@ -136,3 +136,8 @@ export const format = (date, exp = 'yyyy年MM月dd日') => {
         .replace('MM', fillZero(m))
         .replace('dd', fillZero(d))
 }
+
+// 记录一些公共数据
+export const Store = {
+    hasExpand: false // 当前是否有展开的单元格
+}

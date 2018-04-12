@@ -1,10 +1,11 @@
 {
   "name": "vue-schedule-calendar",
   "description": "Vue schedule calendar.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "yusen <634206017@qq.com>",
-  "main": "./src/scheduleCalendar/index.js",
+  "main": "./dist/scheduleCalendar.js",
   "license": "MIT",
+  "keywords": ["vue", "component", "calendar", "schedule"],
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"

@@ -16,7 +16,7 @@
              :class="{ expanded }"
              :style="detailsPost"
              ref="details">
-            <div v-if="expanded"
+            <div v-show="expanded"
                  class="schedule-calendar-details-hd">{{ dateString }}</div>
             <div class="schedule-calendar-details-bd">
                 <event-item v-if="details.length"
@@ -32,7 +32,7 @@
     </div>
 </template>
 <script>
-import { EventBus, isSameDay, format } from './utils'
+import { EventBus, isSameDay, format, Store } from './utils'
 import eventItem from './eventItem'
 
 export default {
@@ -67,7 +67,7 @@ export default {
             return format(this.date)
         },
         detailsPost() {
-            let post = {}
+            const post = {}
 
             if (this.index >= 35) {
                 post.bottom = 0
@@ -95,6 +95,7 @@ export default {
         reduceAll(e) {
             if (!this.$refs.details.contains(e.target)) {
                 this.expanded = false
+                Store.hasExpand = true // 设为 true，当前点击仅仅是为了收缩单元格
                 document.removeEventListener('mouseup', this.reduceAll)
             }
         },
@@ -116,6 +117,12 @@ export default {
             EventBus.$emit('item-drop', e, format(this.date, 'yyyy-MM-dd'), this.type, this.index)
         },
         cellClick(e) {
+            // 此时为收缩单页格，不触发 date-click
+            if (Store.hasExpand) {
+                // 设为 false，下次正常触发 date-click
+                Store.hasExpand = false
+                return
+            }
             EventBus.$emit('date-click', e, format(this.date, 'yyyy-MM-dd'))
         }
     },

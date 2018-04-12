@@ -2,7 +2,7 @@ const path = require('path')
 const Webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = {
+const webpackConfig = {
     entry: {
         demo: './src/main.js'
     },
@@ -40,13 +40,13 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
+            vue$: 'vue/dist/vue.esm.js'
         }
     },
     devServer: {
         historyApiFallback: true,
         noInfo: true,
-        overlay: true,
+        overlay: true
     },
     performance: {
         hints: false
@@ -66,9 +66,9 @@ if (process.env.NODE_ENV === 'production') {
     //     })
     // }
 
-    module.exports.devtool = ''
+    webpackConfig.devtool = ''
     // http://vue-loader.vuejs.org/en/workflow/production.html
-    module.exports.plugins = (module.exports.plugins || []).concat([
+    webpackConfig.plugins = (webpackConfig.plugins || []).concat([
         new Webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
@@ -87,4 +87,31 @@ if (process.env.NODE_ENV === 'production') {
             minimize: true
         })
     ])
+
+    module.exports = [
+        webpackConfig,
+        {
+            ...webpackConfig,
+            entry: {
+                scheduleCalendar: './src/scheduleCalendar/index.js'
+            },
+            output: {
+                path: path.resolve(__dirname, './dist'),
+                publicPath: '/dist/',
+                filename: '[name].js',
+                libraryTarget: 'umd'
+            },
+            externals: {
+                vue: {
+                    root: 'Vue',
+                    commonjs: 'vue',
+                    commonjs2: 'vue',
+                    amd: 'vue'
+                }
+            },
+            devtool: false
+        }
+    ]
+} else {
+    module.exports = webpackConfig
 }

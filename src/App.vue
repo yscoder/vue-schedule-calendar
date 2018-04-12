@@ -3,23 +3,17 @@
          class="demo">
         <h1 class="demo-title">Vue Schedule Calendar</h1>
         <div class="demo-container">
-            <schedule-calendar :events="data"
+            <schedule-calendar :events="events"
                                :dateItemRender="itemRender"
                                @event-dragend="changeDate"></schedule-calendar>
         </div>
     </div>
 </template>
 <script>
-import scheduleCalendar from './scheduleCalendar'
-
 export default {
-    name: 'app',
-    components: {
-        scheduleCalendar
-    },
     data() {
         return {
-            data: [
+            events: [
                 {
                     id: 111,
                     date: '2017-04-03',
@@ -89,9 +83,9 @@ export default {
     },
     methods: {
         changeDate(e, item, date) {
-            const updateIndex = this.data.findIndex(ele => ele.id === item.id)
-            this.$set(this.data, updateIndex, {
-                ...this.data[updateIndex],
+            const updateIndex = this.events.findIndex(ele => ele.id === item.id)
+            this.$set(this.events, updateIndex, {
+                ...this.events[updateIndex],
                 date
             })
         }
@@ -99,7 +93,7 @@ export default {
     created() {
         // 显示为当月的数据
         const now = new Date()
-        this.data = this.data.map(item => {
+        this.events = this.events.map(item => {
             const d = item.date.split('-')[2]
             item.date = `${now.getFullYear()}-${now.getMonth() + 1}-${d}`
             return item
