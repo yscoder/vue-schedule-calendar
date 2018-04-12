@@ -18,25 +18,25 @@
             <div v-if="expanded"
                  class="schedule-calendar-details-hd">{{ dateString }}</div>
             <div class="schedule-calendar-details-bd">
-                <sc-item v-if="details.length"
-                         v-for="item in displayDetails"
-                         :item="item"
-                         :date="date"
-                         :type="type"
-                         :itemRender="itemRender"
-                         @item-dragstart="dragItem"
-                         :key="item.id"></sc-item>
+                <event-item v-if="details.length"
+                            v-for="item in displayDetails"
+                            :item="item"
+                            :date="date"
+                            :type="type"
+                            :itemRender="itemRender"
+                            @item-dragstart="dragItem"
+                            :key="item.id"></event-item>
             </div>
         </div>
     </div>
 </template>
 <script>
 import { EventBus, isSameDay, format } from './utils'
-import scItem from './scItem'
+import eventItem from './eventItem'
 
 export default {
     components: {
-        scItem
+        eventItem
     },
     props: {
         date: Date,
@@ -125,22 +125,22 @@ export default {
 }
 </script>
 <style lang="less">
-@import './variables.less';
+@import "./variables.less";
 
 .schedule-calendar- {
     &date {
         position: relative;
         display: flex;
         flex-direction: column;
-        width: ~"calc(100% / 7)";
-        height: ~"calc(100% / 6)";
+        width: ~'calc(100% / 7)';
+        height: ~'calc(100% / 6)';
         padding: 4px;
         border-top: 1px solid @sc-border-color;
         border-left: 1px solid @sc-border-color;
         user-select: none;
 
-        &:nth-child(7n+1) {
-            border-left: none
+        &:nth-child(7n + 1) {
+            border-left: none;
         }
 
         &.prev,
@@ -160,7 +160,7 @@ export default {
         &.today {
             .schedule-calendar-date-label {
                 color: @sc-body-color;
-                background: @sc-primary-color
+                background: @sc-primary-color;
             }
         }
 
@@ -174,7 +174,7 @@ export default {
     &date-hd {
         display: flex;
         justify-content: space-between;
-        align-content: center
+        align-content: center;
     }
     &details {
         flex: 1;
@@ -208,4 +208,5 @@ export default {
         color: @sc-primary-color;
     }
 }
+
 </style>

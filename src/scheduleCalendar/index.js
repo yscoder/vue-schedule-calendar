@@ -1,3 +1,3 @@
-import scCalendar from './scCalendar'
+import calendar from './calendar'
 
-export default scCalendar
+export default calendar

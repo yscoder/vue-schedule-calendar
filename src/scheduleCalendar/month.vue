@@ -2,24 +2,24 @@
     <div class="schedule-calendar-month"
          :class="{ [animationClass]: animated }"
          @animationend="removeAnimation">
-        <sc-date v-for="(item, index) in days"
-                 :date="item.date"
-                 :type="item.type"
-                 :data="data"
-                 :index="index"
-                 :draggedIndex="draggedIndex"
-                 :itemRender="itemRender"
-                 @highlight="highlight"
-                 :key="index"></sc-date>
+        <date-cell v-for="(item, index) in days"
+                   :date="item.date"
+                   :type="item.type"
+                   :data="data"
+                   :index="index"
+                   :draggedIndex="draggedIndex"
+                   :itemRender="itemRender"
+                   @highlight="highlight"
+                   :key="index"></date-cell>
     </div>
 </template>
 <script>
 import { monthlyCalendar } from './utils'
-import scDate from './scDate'
+import dateCell from './dateCell'
 
 export default {
     components: {
-        scDate
+        dateCell
     },
     props: {
         year: Number,
@@ -52,7 +52,7 @@ export default {
             this.animated = false
         },
         addAnimation(val, old) {
-            if(val !== old) {
+            if (val !== old) {
                 this.animated = true
             }
         },
@@ -62,16 +62,16 @@ export default {
     },
     watch: {
         mDate(val, old) {
-            if(old) {
-                if(val < old) {
+            if (old) {
+                if (val < old) {
                     this.direction = 'Right'
                 }
-                if(val > old) {
+                if (val > old) {
                     this.direction = 'Left'
                 }
             }
 
-            if(val !== old) {
+            if (val !== old) {
                 this.animated = true
             }
         }
@@ -79,7 +79,7 @@ export default {
 }
 </script>
 <style lang="less">
-@import './variables.less';
+@import "./variables.less";
 
 .schedule-calendar- {
     &month {
@@ -122,4 +122,5 @@ export default {
         transform: translate3d(0, 0, 0);
     }
 }
+
 </style>

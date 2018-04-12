@@ -1,30 +1,30 @@
 <template>
     <div class="schedule-calendar">
-        <sc-header :year="year"
-                   :month="month"
-                   @updateValue="updateView"></sc-header>
+        <header-bar :year="year"
+                    :month="month"
+                    @updateValue="updateView"></header-bar>
         <div class="schedule-calendar-body">
-            <sc-week :startWeek="startWeek"></sc-week>
-            <sc-month :year="year"
-                      :month="month"
-                      :startWeek="startWeek"
-                      :data="keepData"
-                      :itemRender="itemRender"></sc-month>
+            <week :startWeek="startWeek"></week>
+            <month :year="year"
+                   :month="month"
+                   :startWeek="startWeek"
+                   :data="keepData"
+                   :itemRender="dateItemRender"></month>
         </div>
     </div>
 </template>
 <script>
 import { EventBus } from './utils'
-import scHeader from './scHeader'
-import scWeek from './scWeek'
-import scMonth from './scMonth'
+import headerBar from './header'
+import week from './week'
+import month from './month'
 
 export default {
     name: 'schedule-calendar',
     components: {
-        scHeader,
-        scWeek,
-        scMonth,
+        headerBar,
+        week,
+        month,
     },
     props: {
         startMonth: String,
@@ -32,22 +32,22 @@ export default {
             type: Number,
             default: 1
         },
-        originData: {
+        events: {
             type: Array,
             default: []
         },
-        itemRender: Function
+        dateItemRender: Function
     },
     data() {
         return {
             year: new Date().getFullYear(),
             month: new Date().getMonth(),
-            keepData: [...this.originData],
+            keepData: [...this.events],
             dragItem: null
         }
     },
     watch: {
-        originData(data) {
+        events(data) {
             console.log(data)
             if (data.length) {
                 this.keepData = [...data]
@@ -83,7 +83,7 @@ export default {
 }
 </script>
 <style lang="less">
-@import './variables.less';
+@import "./variables.less";
 
 .schedule- {
     &calendar {
@@ -118,4 +118,5 @@ export default {
         }
     }
 }
+
 </style>

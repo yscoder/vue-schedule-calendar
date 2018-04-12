@@ -33,9 +33,5 @@
     "type": "git",
     "url": "git+https://github.com/yscoder/vue-schedule-calendar.git"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 2%", "last 2 versions", "not ie <= 8"]
 }

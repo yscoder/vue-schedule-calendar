@@ -3,7 +3,8 @@
          class="demo">
         <h1 class="demo-title">Vue Schedule Calendar</h1>
         <div class="demo-container">
-            <schedule-calendar :originData="data" :itemRender="itemRender"></schedule-calendar>
+            <schedule-calendar :events="data"
+                               :dateItemRender="itemRender"></schedule-calendar>
         </div>
     </div>
 </template>
@@ -88,7 +89,7 @@ export default {
 </script>
 <style lang="less">
 html {
-    background: #eee
+    background: #eee;
 }
 
 body,
@@ -106,14 +107,15 @@ body {
     flex-direction: column;
     height: 100%;
     padding: 0 30px 30px;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 .demo-title {
-    text-align: center
+    text-align: center;
 }
 
 .demo-container {
-    flex: 1
+    flex: 1;
 }
+
 </style>

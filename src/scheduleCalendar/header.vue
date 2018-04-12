@@ -6,13 +6,14 @@
         <button type="button"
                 class="schedule-calendar-arrow"
                 @click="prevMonth">&lt;</button>
-        <div class="schedule-calendar-picker" ref="picker">
+        <div class="schedule-calendar-picker"
+             ref="picker">
             <div role="button"
                  class="schedule-calendar-display"
                  @click="pickerVisible = !pickerVisible">{{year}} 年 {{month + 1}} 月</div>
-            <sc-picker :visible="pickerVisible"
-                       :year="year"
-                       :month="month"></sc-picker>
+            <picker :visible="pickerVisible"
+                    :year="year"
+                    :month="month"></picker>
         </div>
         <button type="button"
                 class="schedule-calendar-arrow"
@@ -24,11 +25,11 @@
 </template>
 <script>
 import { calcPrevMonth, calcNextMonth } from './utils'
-import scPicker from './scPicker'
+import picker from './picker'
 
 export default {
     components: {
-        scPicker
+        picker
     },
     props: {
         year: Number,
@@ -61,7 +62,7 @@ export default {
             this.updateValue(year, month)
         },
         clickOutSide(e) {
-            if(this.pickerVisible && !this.$refs.picker.contains(e.target)) {
+            if (this.pickerVisible && !this.$refs.picker.contains(e.target)) {
                 this.pickerVisible = false
             }
         }
@@ -75,7 +76,7 @@ export default {
 }
 </script>
 <style lang="less">
-@import './variables.less';
+@import "./variables.less";
 
 .schedule-calendar- {
     &hd {
@@ -115,7 +116,7 @@ export default {
     &arrow,
     &display {
         border-radius: 2px;
-        transition: 0.2s ease-in-out;
+        transition: .2s ease-in-out;
         &:hover {
             color: #fff;
             background: @sc-primary-dark-color;
@@ -127,4 +128,5 @@ export default {
         cursor: pointer;
     }
 }
+
 </style>
