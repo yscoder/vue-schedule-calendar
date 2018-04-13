@@ -2,11 +2,9 @@
     <div id="app"
          class="demo">
         <h1 class="demo-title">Vue Schedule Calendar</h1>
-        <div class="demo-container">
-            <schedule-calendar :events="events"
-                               :dateItemRender="itemRender"
-                               @event-dragend="changeDate"></schedule-calendar>
-        </div>
+        <schedule-calendar :events="events"
+                            :dateItemRender="itemRender"
+                            @event-dragend="changeDate"></schedule-calendar>
     </div>
 </template>
 <script>
@@ -126,10 +124,6 @@ body {
 
 .demo-title {
     text-align: center;
-}
-
-.demo-container {
-    flex: 1;
 }
 
 </style>

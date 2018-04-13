@@ -93,6 +93,7 @@ export default {
         flex-direction: column;
         width: 100%;
         height: 100%;
+        min-width: @sc-cell-min-width * 7;
         color: @sc-base-color;
         font-size: @sc-base-font-size;
         box-shadow: @sc-box-shadow;

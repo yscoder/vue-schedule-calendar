@@ -145,6 +145,8 @@ export default {
         flex-direction: column;
         width: ~'calc(100% / 7)';
         height: ~'calc(100% / 6)';
+        min-width: 94px;
+        min-height: 40px;
         padding: 4px;
         border-top: 1px solid @sc-border-color;
         border-left: 1px solid @sc-border-color;
